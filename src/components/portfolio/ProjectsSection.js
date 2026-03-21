@@ -22,7 +22,7 @@ export default function ProjectsSection({ data }) {
   return (
     <section className="py-32" id="projects">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="flex flex-col items-center text-center mb-24 space-y-4">
+        <div className="flex flex-col mb-24 space-y-4 text-left">
           <h2 className="font-headline text-sm font-bold text-primary tracking-[0.4em] uppercase">
             {p.eyebrow}
           </h2>

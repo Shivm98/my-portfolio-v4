@@ -22,7 +22,7 @@ export default function AboutSection({ data }) {
       className="py-32 bg-black/[0.01] dark:bg-white/[0.02]"
       id="about"
     >
-      <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-12 gap-20">
+      <div className="max-w-7xl mx-auto px-8 grid md:grid-cols-12 gap-12 md:gap-20">
         <div className="md:col-span-5">
           <div className="space-y-4">
             <div className="h-1 w-12 bg-primary"></div>

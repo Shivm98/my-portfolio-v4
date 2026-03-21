@@ -3,7 +3,7 @@ export default function SkillsSection({ data }) {
   return (
     <section className="py-32" id="skills">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
+        <div className="flex flex-col md:flex-row justify-between md:items-end mb-20 gap-8">
           <div className="space-y-4">
             <div className="h-1 w-12 bg-secondary"></div>
             <h2 className="font-headline text-sm font-bold text-secondary tracking-[0.3em] uppercase">
@@ -11,7 +11,7 @@ export default function SkillsSection({ data }) {
             </h2>
             <h3 className="font-headline text-4xl font-bold">{s.title}</h3>
           </div>
-          <p className="text-on-surface-variant max-w-sm text-right font-light leading-relaxed">
+          <p className="text-on-surface-variant max-w-sm md:text-right font-light leading-relaxed">
             {s.blurb}
           </p>
         </div>

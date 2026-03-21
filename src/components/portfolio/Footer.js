@@ -3,7 +3,7 @@ export default function Footer({ data }) {
   return (
     <footer className="w-full border-t border-black/5 dark:border-white/5 bg-white dark:bg-slate-950/80 py-16">
       <div className="max-w-7xl mx-auto px-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-12">
           <div className="space-y-4">
             <span className="text-3xl font-black text-on-surface dark:text-white font-headline tracking-tighter">
               {data.brand.name}
@@ -12,7 +12,7 @@ export default function Footer({ data }) {
               {f.copyright}
             </p>
           </div>
-          <div className="flex items-center gap-12">
+          <div className="flex flex-wrap items-center justify-start gap-x-12 gap-y-4 md:justify-end">
             {f.links.map((link) => (
               <a
                 key={link.href}

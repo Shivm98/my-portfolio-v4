@@ -35,7 +35,7 @@
         "animationDelay": "0s"
       },
       {
-        "value": "30+",
+        "value": "20+",
         "label": "Projects Delivered",
         "valueClass": "text-primary",
         "animationDuration": "5s",
@@ -66,7 +66,7 @@
       {
         "segments": [
           { "type": "plain", "text": "I’ve worked on " },
-          { "type": "primary", "text": "30+ projects" },
+          { "type": "primary", "text": "20+ projects" },
           {
             "type": "plain",
             "text": " across gaming and enterprise domains. Currently a Senior Solution Engineer, I specialize in React, Next.js, and modern frontend architecture. Beyond coding, I mentor developers and collaborate closely with stakeholders to deliver real business impact."
@@ -170,7 +170,7 @@
   "contact": {
     "headlineBefore": "Let's build",
     "headlineGradient": "extraordinary.",
-    "intro": "Whether you need technical consulting, a new MVP architected, or a partner for scale, I'm ready to collaborate.",
+    "intro": "Have an opportunity or idea in mind? Let’s connect and build something great together.",
     "rows": [
       {
         "label": "Direct Email",

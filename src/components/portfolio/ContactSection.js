@@ -4,17 +4,17 @@ import { useState } from "react";
 
 const rowIconShell = {
   primary:
-    "w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-primary/10 transition-colors",
+    "w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-primary/10 transition-colors",
   secondary:
-    "w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-secondary/10 transition-colors",
+    "w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-secondary/10 transition-colors",
   tertiary:
-    "w-14 h-14 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-tertiary/10 transition-colors",
+    "w-12 h-12 sm:w-14 sm:h-14 shrink-0 rounded-2xl bg-black/5 dark:bg-white/5 flex items-center justify-center border border-black/5 dark:border-white/10 group-hover:bg-tertiary/10 transition-colors",
 };
 
 const rowIconClass = {
-  primary: "material-symbols-outlined text-primary",
-  secondary: "material-symbols-outlined text-secondary",
-  tertiary: "material-symbols-outlined text-tertiary",
+  primary: "material-symbols-outlined text-primary text-[22px] sm:text-[24px]",
+  secondary: "material-symbols-outlined text-secondary text-[22px] sm:text-[24px]",
+  tertiary: "material-symbols-outlined text-tertiary text-[22px] sm:text-[24px]",
 };
 
 export default function ContactSection({ data }) {
@@ -56,32 +56,35 @@ export default function ContactSection({ data }) {
   }
 
   return (
-    <section className="py-32 relative" id="contact">
-      <div className="max-w-7xl mx-auto px-8">
-        <div className="glass-card rounded-[3rem] p-12 md:p-20 overflow-hidden relative border border-white/60 dark:border-white/5">
+    <section className="py-16 sm:py-24 md:py-32 relative" id="contact">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
+        <div className="glass-card rounded-3xl sm:rounded-[2.5rem] md:rounded-[3rem] p-5 sm:p-8 md:p-12 lg:p-20 overflow-hidden relative border border-white/60 dark:border-white/5">
           <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary/5 dark:bg-primary/10 blur-[100px] rounded-full"></div>
-          <div className="grid md:grid-cols-2 gap-20 relative z-10">
-            <div>
-              <h2 className="font-headline text-5xl md:text-6xl font-bold mb-8 leading-tight text-on-surface">
+          <div className="grid md:grid-cols-2 gap-8 sm:gap-10 md:gap-20 relative z-10">
+            <div className="min-w-0">
+              <h2 className="font-headline text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-5 sm:mb-6 md:mb-8 leading-[1.15] sm:leading-tight text-on-surface">
                 {c.headlineBefore} <br />
                 <span className="text-gradient">{c.headlineGradient}</span>
               </h2>
-              <p className="text-on-surface-variant text-xl mb-12 font-light leading-relaxed">
+              <p className="text-on-surface-variant text-base sm:text-lg md:text-xl mb-8 sm:mb-10 md:mb-12 font-light leading-relaxed max-w-xl">
                 {c.intro}
               </p>
-              <div className="space-y-8">
+              <div className="space-y-6 sm:space-y-8">
                 {c.rows.map((row, i) => (
-                  <div key={i} className="flex items-center gap-6 group">
+                  <div
+                    key={i}
+                    className="flex items-start sm:items-center gap-4 sm:gap-6 group"
+                  >
                     <div className={rowIconShell[row.accent]}>
                       <span className={rowIconClass[row.accent]}>
                         {row.icon}
                       </span>
                     </div>
-                    <div>
-                      <div className="text-[10px] font-label text-on-surface-variant uppercase tracking-widest font-bold">
+                    <div className="min-w-0 pt-0.5 sm:pt-0">
+                      <div className="text-[10px] sm:text-[11px] font-label text-on-surface-variant uppercase tracking-widest font-bold">
                         {row.label}
                       </div>
-                      <div className="text-lg font-semibold text-on-surface">
+                      <div className="text-base sm:text-lg font-semibold text-on-surface break-words">
                         {row.value}
                       </div>
                     </div>
@@ -89,9 +92,9 @@ export default function ContactSection({ data }) {
                 ))}
               </div>
             </div>
-            <div className="bg-slate-200/30 dark:bg-slate-900/40 p-10 rounded-[2rem] border border-black/5 dark:border-white/10 backdrop-blur-xl">
+            <div className="bg-slate-200/30 dark:bg-slate-900/40 p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-[2rem] border border-black/5 dark:border-white/10 backdrop-blur-xl w-full min-w-0">
               <form
-                className="space-y-8 relative"
+                className="space-y-6 sm:space-y-8 relative text-left"
                 onSubmit={handleSubmit}
                 noValidate
               >
@@ -107,10 +110,10 @@ export default function ContactSection({ data }) {
                     onChange={(e) => setHoneypot(e.target.value)}
                   />
                 </div>
-                <div className="grid md:grid-cols-2 gap-8">
+                <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
                   <div className="relative group">
                     <input
-                      className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-on-surface transition-all input-glow peer placeholder-transparent"
+                      className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-base text-on-surface transition-all input-glow peer placeholder-transparent"
                       id="name"
                       name="name"
                       placeholder={f.namePlaceholder}
@@ -125,7 +128,7 @@ export default function ContactSection({ data }) {
                       }}
                     />
                     <label
-                      className="absolute left-0 -top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
+                      className="absolute left-0 -top-3.5 sm:-top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-3.5 sm:peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
                       htmlFor="name"
                     >
                       {f.nameLabel}
@@ -133,7 +136,7 @@ export default function ContactSection({ data }) {
                   </div>
                   <div className="relative group">
                     <input
-                      className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-on-surface transition-all input-glow peer placeholder-transparent"
+                      className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-base text-on-surface transition-all input-glow peer placeholder-transparent"
                       id="email"
                       name="email"
                       placeholder={f.emailPlaceholder}
@@ -148,7 +151,7 @@ export default function ContactSection({ data }) {
                       }}
                     />
                     <label
-                      className="absolute left-0 -top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
+                      className="absolute left-0 -top-3.5 sm:-top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-3.5 sm:peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
                       htmlFor="email"
                     >
                       {f.emailLabel}
@@ -157,7 +160,7 @@ export default function ContactSection({ data }) {
                 </div>
                 <div className="relative group">
                   <textarea
-                    className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-on-surface transition-all input-glow peer placeholder-transparent"
+                    className="w-full bg-transparent border-b-2 border-black/10 dark:border-white/10 focus:border-primary outline-none py-3 text-base text-on-surface transition-all input-glow peer placeholder-transparent resize-y"
                     id="message"
                     name="message"
                     placeholder={f.messagePlaceholder}
@@ -172,7 +175,7 @@ export default function ContactSection({ data }) {
                     }}
                   ></textarea>
                   <label
-                    className="absolute left-0 -top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
+                    className="absolute left-0 -top-3.5 sm:-top-4 text-[10px] font-bold text-primary uppercase tracking-widest transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:text-on-surface-variant peer-placeholder-shown:top-3 peer-focus:-top-3.5 sm:peer-focus:-top-4 peer-focus:text-primary peer-focus:text-[10px]"
                     htmlFor="message"
                   >
                     {f.messageLabel}
@@ -180,7 +183,7 @@ export default function ContactSection({ data }) {
                 </div>
                 {(status === "success" || status === "error") && (
                   <p
-                    className={`text-sm font-light leading-relaxed ${
+                    className={`text-sm sm:text-base font-light leading-relaxed ${
                       status === "success"
                         ? "text-secondary"
                         : "text-on-surface-variant"
@@ -191,7 +194,7 @@ export default function ContactSection({ data }) {
                   </p>
                 )}
                 <button
-                  className="w-full bg-primary text-on-primary py-5 rounded-xl font-bold hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all flex items-center justify-center gap-3 group disabled:opacity-60 disabled:pointer-events-none"
+                  className="w-full bg-primary text-on-primary py-4 sm:py-5 rounded-xl text-sm sm:text-base font-bold hover:shadow-[0_0_30px_rgba(99,102,241,0.3)] transition-all flex items-center justify-center gap-2 sm:gap-3 group disabled:opacity-60 disabled:pointer-events-none"
                   type="submit"
                   disabled={status === "loading"}
                   aria-busy={status === "loading"}
