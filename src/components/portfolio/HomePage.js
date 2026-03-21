@@ -4,7 +4,7 @@ import HeroSection from "./HeroSection";
 import AboutSection from "./AboutSection";
 import SkillsSection from "./SkillsSection";
 import ExperienceSection from "./ExperienceSection";
-import ProjectsSection from "./ProjectsSection";
+// import ProjectsSection from "./ProjectsSection"; // We will restore this later.
 import ContactSection from "./ContactSection";
 
 export default function HomePage({ data }) {
@@ -26,12 +26,15 @@ export default function HomePage({ data }) {
       <main className="pt-20">
         <HeroSection
           data={data}
-          onViewProjects={() => handleScroll("projects")}
+          /* Scroll target: use "projects" again when ProjectsSection is back. */
+          onViewProjects={() => handleScroll("experience")}
         />
         <AboutSection data={data} />
         <SkillsSection data={data} />
         <ExperienceSection data={data} />
+        {/* Projects section — we will restore this later.
         <ProjectsSection data={data} />
+        */}
         <ContactSection data={data} />
       </main>
     </div>

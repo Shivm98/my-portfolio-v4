@@ -1,30 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import portfolio from "@/content/portfolio.json";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import HomePage from "./HomePage";
 
 export default function PortfolioApp() {
-  const [isDark, setIsDark] = useState(true);
-
-  useEffect(() => {
-    const html = document.documentElement;
-    if (isDark) {
-      html.classList.add("dark");
-      html.classList.remove("light");
-    } else {
-      html.classList.add("light");
-      html.classList.remove("dark");
-    }
-  }, [isDark]);
-
-  const toggleTheme = () => setIsDark(!isDark);
+  // Theme toggle — we will restore this later (useState + useEffect on documentElement + toggleTheme).
+  // const [isDark, setIsDark] = useState(true);
+  // useEffect(() => { ... }, [isDark]);
+  // const toggleTheme = () => setIsDark(!isDark);
 
   return (
     <>
-      <Navbar data={portfolio} isDark={isDark} toggleTheme={toggleTheme} />
+      <Navbar data={portfolio} />
       <HomePage data={portfolio} />
       <Footer data={portfolio} />
     </>

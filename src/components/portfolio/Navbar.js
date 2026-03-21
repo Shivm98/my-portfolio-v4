@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-export default function Navbar({ data, isDark, toggleTheme }) {
+export default function Navbar({ data }) {
   const scrollTo = (id) => {
     const element = document.getElementById(id);
     if (element) {
@@ -20,7 +20,10 @@ export default function Navbar({ data, isDark, toggleTheme }) {
           {data.brand.name}
         </Link>
         <nav className="hidden md:flex items-center gap-10">
-          {data.nav.items.map((item) => (
+          {/* Projects link hidden while section is disabled — we will restore this later. */}
+          {data.nav.items
+            .filter((item) => item.id !== "projects")
+            .map((item) => (
             <button
               key={item.id}
               type="button"
@@ -32,6 +35,7 @@ export default function Navbar({ data, isDark, toggleTheme }) {
           ))}
         </nav>
         <div className="flex items-center gap-6">
+          {/* Theme toggle — we will restore this later (needs isDark + toggleTheme from parent).
           <button
             type="button"
             onClick={toggleTheme}
@@ -41,6 +45,7 @@ export default function Navbar({ data, isDark, toggleTheme }) {
               {isDark ? "light_mode" : "dark_mode"}
             </span>
           </button>
+          */}
           <button
             type="button"
             onClick={() => scrollTo("contact")}
