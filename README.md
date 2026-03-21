@@ -1,36 +1,36 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Portfolio (Next.js)
 
-## Getting Started
+Personal portfolio site: content in [`src/content/portfolio.json`](src/content/portfolio.json), UI under [`src/components/portfolio/`](src/components/portfolio/).
 
-First, run the development server:
+## Development
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+## Contact form (email)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Submissions are handled by [`src/app/api/contact/route.js`](src/app/api/contact/route.js) using **Nodemailer** and your SMTP provider (e.g. Gmail with an [App Password](https://support.google.com/accounts/answer/185833), or a transactional SMTP service).
 
-## Learn More
+1. Copy [`.env.example`](.env.example) to `.env.local` and fill in `MAIL_*` values.
+2. Optionally set `contact.form.emailSubject` in `portfolio.json` (used as the email subject prefix).
 
-To learn more about Next.js, take a look at the following resources:
+Without valid mail env vars, the API responds with `503` and the UI shows the configured error message.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Resume
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Place your PDF at [`public/resume.pdf`](public/resume.pdf) and set `hero.resumePath` in `portfolio.json` (default `/resume.pdf`).
 
 ## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Import the repo in [Vercel](https://vercel.com). Add the same `MAIL_*` variables under **Project → Settings → Environment Variables**. No extra config file is required for a standard Next.js app.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Build
+
+```bash
+npm run build
+npm start
+```

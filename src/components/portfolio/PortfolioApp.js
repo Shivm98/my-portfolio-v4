@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import portfolio from "@/content/portfolio.json";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import HomePage from "./HomePage";
@@ -23,9 +24,9 @@ export default function PortfolioApp() {
 
   return (
     <>
-      <Navbar isDark={isDark} toggleTheme={toggleTheme} />
-      <HomePage />
-      <Footer />
+      <Navbar data={portfolio} isDark={isDark} toggleTheme={toggleTheme} />
+      <HomePage data={portfolio} />
+      <Footer data={portfolio} />
     </>
   );
 }

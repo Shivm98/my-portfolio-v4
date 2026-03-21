@@ -1,0 +1,221 @@
+{
+  "meta": {
+    "title": "Shiv Shankar Mishra | Senior Solution Engineer",
+    "description": "Frontend-Focused Full-Stack Developer specializing in high-performance web applications."
+  },
+  "brand": {
+    "name": "Shiv.dev"
+  },
+  "nav": {
+    "items": [
+      { "id": "about", "label": "About" },
+      { "id": "experience", "label": "Experience" },
+      { "id": "skills", "label": "Skills" },
+      { "id": "projects", "label": "Projects" },
+      { "id": "contact", "label": "Contact" }
+    ],
+    "cta": "Get in Touch"
+  },
+  "hero": {
+    "badge": "Open for Architecture Consulting",
+    "titleLine1": "Senior Solution",
+    "titleGradient": "Engineer",
+    "subtitle": "Frontend-Focused Full-Stack Developer specializing in delivering and scaling high-performance, production-ready web applications.",
+    "primaryCta": "View Projects",
+    "secondaryCta": "Download CV",
+    "resumePath": "/resume.pdf",
+    "imageUrl": "https://lh3.googleusercontent.com/aida/ADBb0ug-X6h9-7-NiSbHdB7qLVZI26n67nl8Y9893uGTuFOtPqd003KLUhvJ36VnOfrm4V2SYrX9iGved4IlwZ1CCg9PTEBt8lcD7ZOfGbPjfMQv1pRyeNltvkewaVQ5YaTHNOpLBzPk6NpWRn796cOzmdL9IHDuUjQMUQ-bokBk0G4KOVnMMwETV5Btchab_h6la-h8uPnmoWiKfCWedCGfAa6FWcTvVRHS4RoFTi08Yj2NPRZ3pH9ZwJQBPsJH7rXHUTWHyXNKIcuGrw",
+    "imageAlt": "Shiv Shankar Mishra Profile",
+    "metrics": [
+      {
+        "dynamicFrom": "2021-01-01",
+        "label": "Years Experience",
+        "valueClass": "text-secondary",
+        "animationDuration": "4s",
+        "animationDelay": "0s"
+      },
+      {
+        "value": "30+",
+        "label": "Projects Delivered",
+        "valueClass": "text-primary",
+        "animationDuration": "5s",
+        "animationDelay": "1s"
+      }
+    ]
+  },
+  "about": {
+    "eyebrow": "The Narrative",
+    "titleLine1": "From Code to",
+    "titleMuted": "Architecture",
+    "paragraphs": [
+      {
+        "segments": [
+          { "type": "plain", "text": "I’m " },
+          {
+            "type": "name",
+            "text": "Shiv Shankar Mishra"
+          },
+          {
+            "type": "plain",
+            "text": ", a Frontend-focused Full Stack Developer with over "
+          },
+          { "type": "experienceYears" },
+          { "type": "plain", "text": " of experience building scalable systems." }
+        ]
+      },
+      {
+        "segments": [
+          { "type": "plain", "text": "I’ve worked on " },
+          { "type": "primary", "text": "30+ projects" },
+          {
+            "type": "plain",
+            "text": " across gaming and enterprise domains. Currently a Senior Solution Engineer, I specialize in React, Next.js, and modern frontend architecture. Beyond coding, I mentor developers and collaborate closely with stakeholders to deliver real business impact."
+          }
+        ]
+      }
+    ]
+  },
+  "skills": {
+    "eyebrow": "Technical Arsenal",
+    "title": "The Stack of Choice",
+    "blurb": "A modern and robust tech stack curated for performance, developer experience, and scalability.",
+    "categories": [
+      {
+        "title": "Frontend & UI",
+        "color": "text-primary",
+        "skills": ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "MUI"]
+      },
+      {
+        "title": "State & Logic",
+        "color": "text-secondary",
+        "skills": ["Redux Toolkit", "Context API", "Zustand", "SEO/SSR"]
+      },
+      {
+        "title": "Backend & APIs",
+        "color": "text-tertiary",
+        "skills": ["Node.js", "Express", "PostgreSQL", "WebSockets"]
+      },
+      {
+        "title": "Cloud & Ops",
+        "color": "text-on-surface-variant",
+        "skills": ["AWS / GCP", "Docker", "CI/CD", "Git"]
+      }
+    ]
+  },
+  "experience": {
+    "eyebrow": "Professional Evolution",
+    "title": "Career Trajectory",
+    "items": [
+      {
+        "date": "04/2025 – Present",
+        "title": "Senior Solution Engineer",
+        "company": "GammaStack",
+        "align": "left",
+        "points": [
+          "Leading end-to-end delivery of multiple production-grade applications, coordinating across frontend, backend, and QA teams",
+          "Owning frontend architecture using Next.js (App Router), React, and Redux, ensuring scalability and maintainability",
+          "Driving client discussions, requirement analysis, and feature planning for ongoing projects",
+          "Mentoring junior developers and improving team productivity and code quality"
+        ]
+      },
+      {
+        "date": "04/2023 – 03/2025",
+        "title": "Solution Engineer",
+        "company": "GammaStack",
+        "align": "right",
+        "points": [
+          "Developed and scaled casino and betting platforms using React, Next.js, Redux, Tailwind, and Material UI",
+          "Implemented real-time features using WebSockets, enabling dynamic updates and improved user engagement",
+          "Built and optimized admin backoffice systems, improving operational workflows and reducing manual effort",
+          "Enhanced SEO and performance using SSR (Next.js), improving page load times and discoverability"
+        ]
+      },
+      {
+        "date": "05/2021 – 03/2023",
+        "title": "Full Stack Developer",
+        "company": "Celebal Technologies",
+        "align": "left",
+        "points": [
+          "Developed frontend for an Enterprise Chatbot using React and Microsoft Bot Framework (DirectLine)",
+          "Implemented features like speech-to-text and text-to-speech, improving accessibility and UX",
+          "Led a team of 7 frontend developers, ensuring timely delivery and quality standards",
+          "Designed and developed a secure admin dashboard, improving user management and system control"
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "eyebrow": "Showcase",
+    "title": "Selected Case Studies",
+    "items": [
+      {
+        "layout": "image",
+        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDCm8JiOCXAQsa0pbUGMKu5oKjx2UIUwqDVHCCsRMSqYPTOlO3mx2_W_Wkt8sSgzi_FxgBAW7ucxjGY5Yl4LSRblfURkMBWQ63m-eV4ldncYig67ItpJtcBG0YPPSWG0MKFGIJzWPiMGqNLvTuNHhg8fEzPSnv7DyNGduARK33J5XExZ7BdX3T9lBE9_15YeD24dEfsCgN530M5auk-Iu3K3oBtklfaF07B4N6wKU68drUvRmmXTK5q-Oyff5dEV_dGPbILJQ1ejzs",
+        "imageAlt": "Alibaba Arcade",
+        "title": "Alibaba Arcade",
+        "description": "High-concurrency gaming ecosystem optimized for global scale, ensuring production-readiness and sub-100ms latency.",
+        "tags": ["React", "WebSockets", "Redux"],
+        "accent": "primary"
+      },
+      {
+        "layout": "icon",
+        "icon": "account_balance_wallet",
+        "title": "Vegas Coins",
+        "description": "Secure digital wallet for gaming assets. Built with transactional integrity and multi-layer security.",
+        "tags": ["Node.js", "Web3", "PostgreSQL"],
+        "accent": "secondary"
+      }
+    ]
+  },
+  "contact": {
+    "headlineBefore": "Let's build",
+    "headlineGradient": "extraordinary.",
+    "intro": "Whether you need technical consulting, a new MVP architected, or a partner for scale, I'm ready to collaborate.",
+    "rows": [
+      {
+        "label": "Direct Email",
+        "value": "shiv.stn98@gmail.com",
+        "icon": "mail",
+        "accent": "primary"
+      },
+      {
+        "label": "Phone",
+        "value": "+91 6376418291",
+        "icon": "call",
+        "accent": "secondary"
+      },
+      {
+        "label": "Based In",
+        "value": "Indore, India",
+        "icon": "location_on",
+        "accent": "tertiary"
+      }
+    ],
+    "form": {
+      "nameLabel": "Your Name",
+      "emailLabel": "Email Address",
+      "messageLabel": "Message",
+      "namePlaceholder": "Name",
+      "emailPlaceholder": "Email",
+      "messagePlaceholder": "Message",
+      "submit": "Send Message",
+      "emailSubject": "New portfolio message",
+      "submitSuccess": "Thanks — your message was sent. I will get back to you soon.",
+      "submitError": "Something went wrong. Please email me directly instead."
+    }
+  },
+  "footer": {
+    "copyright": "© 2024 Shiv Shankar Mishra. All rights reserved.",
+    "links": [
+      {
+        "label": "LinkedIn",
+        "href": "https://linkedin.com/in/shivshankar-mishra"
+      },
+      {
+        "label": "GitHub",
+        "href": "https://github.com/Shivm98"
+      }
+    ],
+    "tagline": "Crafted for high performance"
+  }
+}

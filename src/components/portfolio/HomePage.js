@@ -7,7 +7,7 @@ import ExperienceSection from "./ExperienceSection";
 import ProjectsSection from "./ProjectsSection";
 import ContactSection from "./ContactSection";
 
-export default function HomePage() {
+export default function HomePage({ data }) {
   const handleScroll = (id) => {
     document.getElementById(id).scrollIntoView({ behavior: "smooth" });
   };
@@ -24,12 +24,15 @@ export default function HomePage() {
       ></div>
 
       <main className="pt-20">
-        <HeroSection onViewProjects={() => handleScroll("projects")} />
-        <AboutSection />
-        <SkillsSection />
-        <ExperienceSection />
-        <ProjectsSection />
-        <ContactSection />
+        <HeroSection
+          data={data}
+          onViewProjects={() => handleScroll("projects")}
+        />
+        <AboutSection data={data} />
+        <SkillsSection data={data} />
+        <ExperienceSection data={data} />
+        <ProjectsSection data={data} />
+        <ContactSection data={data} />
       </main>
     </div>
   );

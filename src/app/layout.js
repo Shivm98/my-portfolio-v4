@@ -1,9 +1,9 @@
 import "./globals.css";
+import portfolio from "@/content/portfolio.json";
 
 export const metadata = {
-  title: "Shiv Shankar Mishra | Senior Solution Engineer",
-  description:
-    "Frontend-Focused Full-Stack Developer specializing in high-performance web applications.",
+  title: portfolio.meta.title,
+  description: portfolio.meta.description,
 };
 
 export default function RootLayout({ children }) {
