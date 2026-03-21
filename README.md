@@ -1,4 +1,4 @@
-# Portfolio (Next.js)
+# Shiv Shankar Mishra — Portfolio
 
 Personal portfolio site: content in [`src/content/portfolio.json`](src/content/portfolio.json), UI under [`src/components/portfolio/`](src/components/portfolio/).
 
