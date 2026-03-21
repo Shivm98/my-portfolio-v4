@@ -1,0 +1,83 @@
+@import "tailwindcss";
+@config "../../tailwind.config.mjs";
+
+body {
+  font-family: "Inter", sans-serif;
+}
+
+.font-headline {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.glass-card {
+  background: rgba(15, 25, 48, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.light .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #6366F1 0%, #53ddfc 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-overlay {
+  position: absolute;
+  width: 40vw;
+  height: 40vw;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(0, 0, 0, 0) 70%
+  );
+  z-index: -1;
+  filter: blur(60px);
+}
+
+.light .glow-overlay {
+  background: radial-gradient(
+    circle,
+    rgba(99, 102, 241, 0.05) 0%,
+    rgba(255, 255, 255, 0) 70%
+  );
+}
+
+.engineer-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(255, 255, 255, 0.03) 1px,
+    transparent 0
+  );
+  background-size: 40px 40px;
+}
+
+.light .engineer-grid {
+  background-image: radial-gradient(
+    circle at 1px 1px,
+    rgba(0, 0, 0, 0.03) 1px,
+    transparent 0
+  );
+}
+
+.input-glow:focus {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2);
+  border-color: rgba(99, 102, 241, 0.5);
+}
+
+html.light {
+  background-color: #f8f9fc;
+  color: #1a1b1f;
+}
+
+html.dark {
+  background-color: #060e20;
+  color: #dee5ff;
+}
