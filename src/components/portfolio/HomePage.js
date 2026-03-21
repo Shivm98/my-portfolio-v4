@@ -13,7 +13,7 @@ export default function HomePage({ data }) {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen overflow-x-hidden">
       <div className="glow-overlay top-0 -left-20"></div>
       <div
         className="glow-overlay bottom-0 -right-20"
@@ -26,7 +26,6 @@ export default function HomePage({ data }) {
       <main className="pt-20">
         <HeroSection
           data={data}
-          /* Scroll target: use "projects" again when ProjectsSection is back. */
           onViewProjects={() => handleScroll("experience")}
         />
         <AboutSection data={data} />

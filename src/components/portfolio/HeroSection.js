@@ -5,7 +5,7 @@ import { formatYearsPlus, getCareerYearsElapsed } from "@/lib/careerYears";
 export default function HeroSection({ data, onViewProjects }) {
   const h = data.hero;
   return (
-    <section className="max-w-7xl mx-auto px-8 py-16 md:py-28 flex flex-col md:flex-row items-center gap-16 relative">
+    <section className="max-w-7xl mx-auto px-8 py-16 md:py-28 flex flex-col-reverse md:flex-row items-center gap-16 relative">
       <div className="flex-1 w-full space-y-10">
         <div className="inline-flex items-center gap-3 px-4 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/5 dark:border-white/10 backdrop-blur-md">
           <span className="w-2 h-2 rounded-full bg-secondary animate-pulse shadow-[0_0_10px_rgba(83,221,252,0.4)]"></span>
@@ -54,7 +54,7 @@ export default function HeroSection({ data, onViewProjects }) {
         <div className="relative rounded-[2rem] overflow-hidden border border-black/5 dark:border-white/10 bg-white dark:bg-surface-container-low shadow-2xl aspect-[4/5]">
           <img
             alt={h.imageAlt}
-            className="w-full h-full object-cover object-top grayscale hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+            className="w-full h-full object-cover object-top transition-all duration-700 scale-110 group-hover:scale-100"
             src={h.imageUrl}
           />
         </div>
