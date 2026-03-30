@@ -32,17 +32,6 @@ export default function Navbar({ data }) {
           ))}
         </nav>
         <div className="flex items-center gap-6">
-          {/* Theme toggle — we will restore this later (needs isDark + toggleTheme from parent).
-          <button
-            type="button"
-            onClick={toggleTheme}
-            className="w-10 h-10 flex items-center justify-center rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors border border-outline-variant/30"
-          >
-            <span className="material-symbols-outlined text-on-surface-variant hover:text-primary text-[20px]">
-              {isDark ? "light_mode" : "dark_mode"}
-            </span>
-          </button>
-          */}
           <button
             type="button"
             onClick={() => scrollTo("contact")}

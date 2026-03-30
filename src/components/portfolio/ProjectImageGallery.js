@@ -1,6 +1,16 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
+import { lockBodyScroll, unlockBodyScroll } from "@/lib/bodyScrollLock";
+
+const OPEN_GUARD_MS = 600;
 
 const modalTagClasses = {
   primary:
@@ -16,6 +26,8 @@ export default function ProjectImageGallery({
 }) {
   const [active, setActive] = useState(0);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const ignoreOpenUntilRef = useRef(0);
+  const detailTitleId = useId();
 
   const safe = Math.min(Math.max(0, active), images.length - 1);
   const current = images[safe];
@@ -31,19 +43,39 @@ export default function ProjectImageGallery({
     [images.length]
   );
 
+  const closeDetails = useCallback(() => {
+    ignoreOpenUntilRef.current = Date.now() + OPEN_GUARD_MS;
+    setDetailsOpen(false);
+  }, []);
+
+  const openDetails = useCallback(() => {
+    if (Date.now() < ignoreOpenUntilRef.current) return;
+    setDetailsOpen(true);
+  }, []);
+
   useEffect(() => {
     if (!detailsOpen) return;
+    lockBodyScroll();
     const onKey = (e) => {
-      if (e.key === "Escape") setDetailsOpen(false);
+      if (e.key === "Escape") closeDetails();
     };
     window.addEventListener("keydown", onKey);
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
     return () => {
       window.removeEventListener("keydown", onKey);
-      document.body.style.overflow = prev;
+      unlockBodyScroll();
     };
-  }, [detailsOpen]);
+  }, [detailsOpen, closeDetails]);
+
+  const handleBackdropPointerDown = useCallback(
+    (e) => {
+      if (e.target !== e.currentTarget) return;
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      e.preventDefault();
+      e.stopPropagation();
+      closeDetails();
+    },
+    [closeDetails]
+  );
 
   if (!images.length || !current) return null;
 
@@ -51,14 +83,146 @@ export default function ProjectImageGallery({
     detailModal &&
     (detailModal.paragraphs?.length > 0 || detailModal.highlights?.length > 0);
 
+  const canPortal =
+    typeof document !== "undefined" && Boolean(document.body);
+
+  const modalNode =
+    detailsOpen &&
+    detailModal &&
+    canPortal &&
+    createPortal(
+      <div
+        className="pointer-events-none fixed inset-0 z-[200] flex min-h-0 items-center justify-center overscroll-none"
+        style={{
+          paddingLeft: "max(0.75rem, env(safe-area-inset-left, 0px))",
+          paddingRight: "max(0.75rem, env(safe-area-inset-right, 0px))",
+          paddingTop: "max(0.75rem, env(safe-area-inset-top, 0px))",
+          paddingBottom: "max(0.75rem, env(safe-area-inset-bottom, 0px))",
+        }}
+      >
+        {/* Opaque dimmer only — no backdrop-filter (prevents hover / repaint flicker) */}
+        <div
+          className="pointer-events-auto absolute inset-0 bg-[rgb(2_6_16/0.82)]"
+          aria-hidden="true"
+          onPointerDown={handleBackdropPointerDown}
+        />
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby={detailTitleId}
+          className="pointer-events-auto relative z-10 mx-auto flex max-h-[min(90dvh,calc(100dvh-2rem))] w-full max-w-2xl flex-col overflow-hidden rounded-2xl border border-white/10 bg-surface-container-high shadow-2xl lg:max-w-3xl"
+          onPointerDown={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="flex min-h-0 flex-1 flex-col">
+            <div className="flex flex-shrink-0 items-start justify-between gap-3 border-b border-white/10 bg-surface-container-low/80 px-4 py-3 sm:px-5 sm:py-4 dark:bg-slate-950/50">
+              <h2
+                id={detailTitleId}
+                className="font-headline min-w-0 flex-1 pr-2 text-base font-bold text-on-surface sm:text-lg md:text-xl"
+              >
+                {title}
+              </h2>
+              <button
+                type="button"
+                onClick={closeDetails}
+                className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full border border-black/5 bg-black/5 text-on-surface hover:bg-black/10 dark:border-white/10 dark:bg-white/10 dark:hover:bg-white/15"
+                aria-label="Close details"
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <div className="min-h-0 flex-1 overflow-y-auto overscroll-y-contain px-4 py-4 [-webkit-overflow-scrolling:touch] sm:px-5 sm:py-5">
+              <div className="space-y-6">
+                {detailModal.paragraphs?.length ? (
+                  <div className="space-y-3 text-sm font-light leading-relaxed text-on-surface-variant sm:text-base">
+                    {detailModal.paragraphs.map((text, i) => (
+                      <p key={i}>{text}</p>
+                    ))}
+                  </div>
+                ) : null}
+
+                {detailModal.highlights?.length ? (
+                  <div>
+                    <h3 className="mb-3 font-headline text-xs font-bold uppercase tracking-[0.2em] text-primary">
+                      Highlights
+                    </h3>
+                    <ul className="list-inside list-disc space-y-2 text-sm font-light text-on-surface-variant sm:text-base">
+                      {detailModal.highlights.map((line) => (
+                        <li key={line}>{line}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
+
+                {detailModal.tags?.length ? (
+                  <div className="flex flex-wrap gap-2">
+                    {detailModal.tags.map((t) => (
+                      <span
+                        key={t}
+                        className={
+                          modalTagClasses[detailModal.accent] ??
+                          modalTagClasses.primary
+                        }
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
+
+                <div>
+                  <h3 className="mb-3 font-headline text-xs font-bold uppercase tracking-[0.2em] text-secondary sm:mb-4">
+                    Screenshots ({images.length})
+                  </h3>
+                  <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
+                    {images.map((img, i) => (
+                      <figure
+                        key={`modal-${img.url}-${i}`}
+                        className="rounded-xl border border-white/10 bg-black/20 p-2 dark:bg-black/40 sm:p-3"
+                      >
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setActive(i);
+                            closeDetails();
+                          }}
+                          className="flex min-h-[120px] w-full items-center justify-center overflow-hidden rounded-lg bg-slate-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary sm:min-h-[160px]"
+                        >
+                          <img
+                            alt={img.alt}
+                            src={img.url}
+                            className="max-h-[200px] w-full object-contain sm:max-h-[240px]"
+                            loading="lazy"
+                            draggable={false}
+                          />
+                        </button>
+                        {img.alt ? (
+                          <figcaption className="mt-2 line-clamp-2 text-xs font-light text-on-surface-variant/90">
+                            {img.alt}
+                          </figcaption>
+                        ) : null}
+                      </figure>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>,
+      document.body
+    );
+
   return (
-    <div className="relative w-full max-w-3xl mx-auto">
-      <div className="relative flex flex-col bg-slate-100/90 dark:bg-slate-950/80 border-b border-black/5 dark:border-white/10 rounded-t-2xl sm:rounded-t-[1.75rem] overflow-hidden">
-        <div className="relative flex items-center justify-center px-2 py-3 sm:px-4 sm:py-4 min-h-[200px] sm:min-h-[240px] md:min-h-[260px] max-h-[min(58vh,480px)]">
+    <>
+    <div className="relative mx-auto w-full max-w-3xl">
+      <div className="relative flex flex-col overflow-hidden rounded-t-2xl border-b border-black/5 bg-slate-100/90 dark:border-white/10 dark:bg-slate-950/80 sm:rounded-t-[1.75rem]">
+        <div className="relative flex max-h-[min(58vh,480px)] min-h-[200px] items-center justify-center px-2 py-3 sm:min-h-[240px] sm:px-4 sm:py-4 md:min-h-[260px]">
           <img
             alt={current.alt}
             src={current.url}
-            className="max-h-[min(52vh,440px)] w-full object-contain select-none"
+            className="max-h-[min(52vh,440px)] w-full select-none object-contain"
             draggable={false}
           />
           {images.length > 1 ? (
@@ -66,7 +230,7 @@ export default function ProjectImageGallery({
               <button
                 type="button"
                 onClick={() => go(-1)}
-                className="absolute left-1 sm:left-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-slate-900/90 border border-black/10 dark:border-white/15 shadow-md flex items-center justify-center text-on-surface hover:bg-white dark:hover:bg-slate-800 transition-colors"
+                className="absolute left-1 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-on-surface shadow-md hover:bg-white dark:border-white/15 dark:bg-slate-900/90 dark:hover:bg-slate-800 sm:left-2 sm:h-9 sm:w-9"
                 aria-label="Previous image"
               >
                 <span className="material-symbols-outlined text-lg sm:text-xl">
@@ -76,7 +240,7 @@ export default function ProjectImageGallery({
               <button
                 type="button"
                 onClick={() => go(1)}
-                className="absolute right-1 sm:right-2 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/90 dark:bg-slate-900/90 border border-black/10 dark:border-white/15 shadow-md flex items-center justify-center text-on-surface hover:bg-white dark:hover:bg-slate-800 transition-colors"
+                className="absolute right-1 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 items-center justify-center rounded-full border border-black/10 bg-white/90 text-on-surface shadow-md hover:bg-white dark:border-white/15 dark:bg-slate-900/90 dark:hover:bg-slate-800 sm:right-2 sm:h-9 sm:w-9"
                 aria-label="Next image"
               >
                 <span className="material-symbols-outlined text-lg sm:text-xl">
@@ -88,10 +252,10 @@ export default function ProjectImageGallery({
         </div>
 
         {images.length > 1 || showDetailsCta ? (
-          <div className="flex flex-col gap-2 px-2 py-2 sm:px-3 sm:py-2.5 border-t border-black/5 dark:border-white/10 bg-white/50 dark:bg-slate-900/40">
+          <div className="flex flex-col gap-2 border-t border-black/5 bg-white/50 px-2 py-2 dark:border-white/10 dark:bg-slate-900/40 sm:px-3 sm:py-2.5">
             {images.length > 1 ? (
               <div
-                className="flex gap-2 overflow-x-auto pb-1 snap-x snap-mandatory [-webkit-overflow-scrolling:touch] -mx-0.5 px-0.5"
+                className="-mx-0.5 flex snap-x snap-mandatory gap-2 overflow-x-auto px-0.5 pb-1 [-webkit-overflow-scrolling:touch]"
                 role="tablist"
                 aria-label={`${title} screenshots`}
               >
@@ -105,16 +269,16 @@ export default function ProjectImageGallery({
                       img.alt || `Screenshot ${i + 1} of ${images.length}`
                     }
                     onClick={() => setActive(i)}
-                    className={`flex-shrink-0 snap-start rounded-xl border-2 overflow-hidden bg-slate-200/60 dark:bg-slate-800/60 p-1 w-16 h-16 sm:w-[4.75rem] sm:h-[4.75rem] flex items-center justify-center transition-all ${
+                    className={`flex h-16 w-16 flex-shrink-0 snap-start items-center justify-center overflow-hidden rounded-xl border-2 bg-slate-200/60 p-1 transition-all dark:bg-slate-800/60 sm:h-[4.75rem] sm:w-[4.75rem] ${
                       i === safe
                         ? "border-primary ring-2 ring-primary/30"
-                        : "border-transparent opacity-80 hover:opacity-100 hover:border-black/15 dark:hover:border-white/20"
+                        : "border-transparent opacity-80 hover:border-black/15 hover:opacity-100 dark:hover:border-white/20"
                     }`}
                   >
                     <img
                       alt=""
                       src={img.url}
-                      className="max-w-full max-h-full w-auto h-auto object-contain pointer-events-none"
+                      className="pointer-events-none h-auto max-h-full w-auto max-w-full object-contain"
                       draggable={false}
                     />
                   </button>
@@ -124,8 +288,8 @@ export default function ProjectImageGallery({
             {showDetailsCta ? (
               <button
                 type="button"
-                onClick={() => setDetailsOpen(true)}
-                className="w-full sm:w-auto sm:self-end inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl text-sm font-bold tracking-wide bg-primary text-on-primary border border-primary/40 hover:opacity-90 transition-opacity shadow-sm"
+                onClick={openDetails}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-primary/40 bg-primary px-4 py-2.5 text-sm font-bold tracking-wide text-on-primary shadow-sm transition-opacity hover:opacity-90 sm:w-auto sm:self-end"
               >
                 <span className="material-symbols-outlined text-lg">
                   article
@@ -136,112 +300,8 @@ export default function ProjectImageGallery({
           </div>
         ) : null}
       </div>
-
-      {detailsOpen && detailModal ? (
-        <div
-          className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 bg-black/55 backdrop-blur-[2px]"
-          role="dialog"
-          aria-modal="true"
-          aria-labelledby="project-detail-title"
-          onClick={() => setDetailsOpen(false)}
-        >
-          <div
-            className="relative w-full max-w-2xl lg:max-w-3xl max-h-[min(92vh,840px)] flex flex-col rounded-2xl border border-white/10 bg-surface-container-high dark:bg-slate-900 shadow-2xl overflow-hidden"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex-shrink-0 flex items-start justify-between gap-3 px-5 py-4 border-b border-white/10 bg-surface-container-low/80 dark:bg-slate-950/50">
-              <h2
-                id="project-detail-title"
-                className="font-headline text-lg sm:text-xl font-bold text-on-surface pr-2"
-              >
-                {title}
-              </h2>
-              <button
-                type="button"
-                onClick={() => setDetailsOpen(false)}
-                className="flex-shrink-0 w-10 h-10 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/15 text-on-surface flex items-center justify-center border border-black/5 dark:border-white/10"
-                aria-label="Close details"
-              >
-                <span className="material-symbols-outlined">close</span>
-              </button>
-            </div>
-
-            <div className="overflow-y-auto flex-1 px-5 py-5 space-y-6">
-              {detailModal.paragraphs?.length ? (
-                <div className="space-y-3 text-on-surface-variant leading-relaxed font-light text-sm sm:text-base">
-                  {detailModal.paragraphs.map((text, i) => (
-                    <p key={i}>{text}</p>
-                  ))}
-                </div>
-              ) : null}
-
-              {detailModal.highlights?.length ? (
-                <div>
-                  <h3 className="font-headline text-xs font-bold text-primary uppercase tracking-[0.2em] mb-3">
-                    Highlights
-                  </h3>
-                  <ul className="list-disc list-inside space-y-2 text-sm sm:text-base text-on-surface-variant font-light">
-                    {detailModal.highlights.map((line) => (
-                      <li key={line}>{line}</li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
-
-              {detailModal.tags?.length ? (
-                <div className="flex flex-wrap gap-2">
-                  {detailModal.tags.map((t) => (
-                    <span
-                      key={t}
-                      className={
-                        modalTagClasses[detailModal.accent] ??
-                        modalTagClasses.primary
-                      }
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              ) : null}
-
-              <div>
-                <h3 className="font-headline text-xs font-bold text-secondary uppercase tracking-[0.2em] mb-4">
-                  Screenshots ({images.length})
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {images.map((img, i) => (
-                    <figure
-                      key={`modal-${img.url}-${i}`}
-                      className="rounded-xl border border-white/10 bg-black/20 dark:bg-black/40 p-2 sm:p-3"
-                    >
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setActive(i);
-                          setDetailsOpen(false);
-                        }}
-                        className="w-full flex items-center justify-center min-h-[140px] sm:min-h-[180px] rounded-lg overflow-hidden bg-slate-900/30 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
-                      >
-                        <img
-                          alt={img.alt}
-                          src={img.url}
-                          className="max-h-[220px] sm:max-h-[260px] w-full object-contain"
-                          loading="lazy"
-                        />
-                      </button>
-                      {img.alt ? (
-                        <figcaption className="mt-2 text-xs text-on-surface-variant/90 font-light line-clamp-2">
-                          {img.alt}
-                        </figcaption>
-                      ) : null}
-                    </figure>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      ) : null}
     </div>
+    {modalNode}
+    </>
   );
 }

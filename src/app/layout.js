@@ -6,11 +6,16 @@ export const metadata = {
   description: portfolio.meta.description,
 };
 
+export const viewport = {
+  colorScheme: "dark",
+};
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       className="dark overflow-x-hidden"
+      style={{ colorScheme: "dark" }}
       suppressHydrationWarning
     >
       <head>
@@ -24,7 +29,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className="selection:bg-primary selection:text-on-primary engineer-grid overflow-x-hidden transition-colors duration-300"
+        className="selection:bg-primary selection:text-on-primary engineer-grid overflow-x-hidden bg-background text-on-surface"
         suppressHydrationWarning
       >
         {children}
