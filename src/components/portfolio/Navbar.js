@@ -20,10 +20,7 @@ export default function Navbar({ data }) {
           {data.brand.name}
         </Link>
         <nav className="hidden md:flex items-center gap-10">
-          {/* Projects link hidden while section is disabled — we will restore this later. */}
-          {data.nav.items
-            .filter((item) => item.id !== "projects")
-            .map((item) => (
+          {data.nav.items.map((item) => (
             <button
               key={item.id}
               type="button"

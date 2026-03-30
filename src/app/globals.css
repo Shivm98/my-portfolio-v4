@@ -81,3 +81,94 @@ html.dark {
   background-color: #060e20;
   color: #dee5ff;
 }
+
+/* Themed scrollbars — Firefox + WebKit (Chrome, Edge, Safari) */
+html.dark {
+  scrollbar-color: rgba(163, 166, 255, 0.55) rgba(9, 19, 40, 0.75);
+}
+
+html.light {
+  scrollbar-color: rgba(99, 102, 241, 0.45) rgba(230, 232, 242, 0.95);
+}
+
+html.dark *,
+html.light * {
+  scrollbar-width: thin;
+}
+
+html.dark ::-webkit-scrollbar,
+html.light ::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+
+html.dark ::-webkit-scrollbar-track,
+html.light ::-webkit-scrollbar-track {
+  background: rgba(9, 19, 40, 0.55);
+  border-radius: 100px;
+  margin-block: 4px;
+  margin-inline: 4px;
+}
+
+html.light ::-webkit-scrollbar-track {
+  background: rgba(230, 232, 242, 0.85);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+html.dark ::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-image: linear-gradient(
+    160deg,
+    rgba(163, 166, 255, 0.88) 0%,
+    rgba(129, 132, 220, 0.75) 42%,
+    rgba(83, 221, 252, 0.82) 100%
+  );
+  box-shadow: 0 0 12px rgba(83, 221, 252, 0.12);
+  transition: background-image 0.2s ease, box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(
+    160deg,
+    rgba(178, 180, 255, 0.95) 0%,
+    rgba(83, 221, 252, 0.95) 100%
+  );
+  box-shadow: 0 0 16px rgba(163, 166, 255, 0.22);
+  filter: brightness(1.05);
+}
+
+html.light ::-webkit-scrollbar-thumb {
+  border-radius: 100px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+  background-image: linear-gradient(
+    160deg,
+    rgba(129, 132, 220, 0.55) 0%,
+    rgba(83, 221, 252, 0.5) 100%
+  );
+  box-shadow: 0 0 10px rgba(99, 102, 241, 0.08);
+  transition: background-image 0.2s ease, box-shadow 0.2s ease,
+    filter 0.2s ease;
+}
+
+html.light ::-webkit-scrollbar-thumb:hover {
+  background-image: linear-gradient(
+    160deg,
+    rgba(99, 102, 241, 0.7) 0%,
+    rgba(60, 180, 210, 0.65) 100%
+  );
+  box-shadow: 0 0 14px rgba(99, 102, 241, 0.15);
+}
+
+html.dark ::-webkit-scrollbar-thumb:active,
+html.light ::-webkit-scrollbar-thumb:active {
+  filter: brightness(0.96);
+}
+
+html.dark ::-webkit-scrollbar-corner,
+html.light ::-webkit-scrollbar-corner {
+  background: transparent;
+}

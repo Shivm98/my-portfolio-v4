@@ -21,10 +21,10 @@
     "titleLine1": "Senior Solution",
     "titleGradient": "Engineer",
     "subtitle": "Frontend-Focused Full-Stack Developer specializing in delivering and scaling high-performance, production-ready web applications.",
-    "primaryCta": "View Experience",
+    "primaryCta": "View Projects",
     "secondaryCta": "Download resume",
     "resumePath": "/resume.pdf",
-    "imageUrl": "https://lh3.googleusercontent.com/aida/ADBb0ug-X6h9-7-NiSbHdB7qLVZI26n67nl8Y9893uGTuFOtPqd003KLUhvJ36VnOfrm4V2SYrX9iGved4IlwZ1CCg9PTEBt8lcD7ZOfGbPjfMQv1pRyeNltvkewaVQ5YaTHNOpLBzPk6NpWRn796cOzmdL9IHDuUjQMUQ-bokBk0G4KOVnMMwETV5Btchab_h6la-h8uPnmoWiKfCWedCGfAa6FWcTvVRHS4RoFTi08Yj2NPRZ3pH9ZwJQBPsJH7rXHUTWHyXNKIcuGrw",
+    "imageUrl": "/shiv-pfofile-pic.png",
     "imageAlt": "Shiv Shankar Mishra Profile",
     "metrics": [
       {
@@ -146,23 +146,73 @@
   },
   "projects": {
     "eyebrow": "Showcase",
-    "title": "Selected Case Studies",
+    "title": "Featured Projects",
     "items": [
       {
         "layout": "image",
-        "imageUrl": "https://lh3.googleusercontent.com/aida-public/AB6AXuDCm8JiOCXAQsa0pbUGMKu5oKjx2UIUwqDVHCCsRMSqYPTOlO3mx2_W_Wkt8sSgzi_FxgBAW7ucxjGY5Yl4LSRblfURkMBWQ63m-eV4ldncYig67ItpJtcBG0YPPSWG0MKFGIJzWPiMGqNLvTuNHhg8fEzPSnv7DyNGduARK33J5XExZ7BdX3T9lBE9_15YeD24dEfsCgN530M5auk-Iu3K3oBtklfaF07B4N6wKU68drUvRmmXTK5q-Oyff5dEV_dGPbILJQ1ejzs",
-        "imageAlt": "Alibaba Arcade",
-        "title": "Alibaba Arcade",
-        "description": "High-concurrency gaming ecosystem optimized for global scale, ensuring production-readiness and sub-100ms latency.",
-        "tags": ["React", "WebSockets", "Redux"],
+        "images": [
+          { "url": "/projects/stickyshop/1.png", "alt": "Stickyshop storefront — home" },
+          { "url": "/projects/stickyshop/2.png", "alt": "Stickyshop — shop listing" },
+          { "url": "/projects/stickyshop/3.png", "alt": "Stickyshop — product detail" },
+          { "url": "/projects/stickyshop/4.png", "alt": "Stickyshop — cart and checkout" },
+          { "url": "/projects/stickyshop/5.png", "alt": "Stickyshop — account or orders" },
+          { "url": "/projects/stickyshop/6.png", "alt": "Stickyshop — admin dashboard" },
+          { "url": "/projects/stickyshop/7.png", "alt": "Stickyshop — admin feature" },
+          { "url": "/projects/stickyshop/8.png", "alt": "Stickyshop — additional screen" }
+        ],
+        "title": "Stickyshop",
+        "descriptionParagraphs": [
+          "Built a full-stack eCommerce platform with product listing, cart management, and user profiles.",
+          "Implemented scalable architecture using Next.js, Express, and PostgreSQL, with optimized data fetching via TanStack Query.",
+          "Leveraged AI-assisted tools for UI ideation and development acceleration while maintaining full ownership of architecture and business logic."
+        ],
+        "highlights": [
+          "Next.js storefront, Vite admin, Express API, and PostgreSQL monorepo",
+          "Shop filters, cart, checkout with Razorpay and server-authoritative totals",
+          "Email verification, transactional mail, and Razorpay webhooks",
+          "Admin RBAC with coupons, shipping methods, and tax rules",
+          "S3-compatible uploads, verified-purchase reviews, Docker Compose for local dev"
+        ],
+        "tags": ["Next.js", "Express", "PostgreSQL", "Razorpay", "TanStack Query"],
         "accent": "primary"
       },
       {
-        "layout": "icon",
-        "icon": "account_balance_wallet",
-        "title": "Vegas Coins",
-        "description": "Secure digital wallet for gaming assets. Built with transactional integrity and multi-layer security.",
-        "tags": ["Node.js", "Web3", "PostgreSQL"],
+        "layout": "image",
+        "images": [
+          { "url": "/projects/interviewprep/1.png", "alt": "Interview Prep — landing or session overview" },
+          { "url": "/projects/interviewprep/2.png", "alt": "Interview Prep — configuration or wizard step" },
+          { "url": "/projects/interviewprep/3.png", "alt": "Interview Prep — track and interview type selection" },
+          { "url": "/projects/interviewprep/4.png", "alt": "Interview Prep — tailored resume and role context" },
+          { "url": "/projects/interviewprep/5.png", "alt": "Interview Prep — fullscreen interview room" },
+          { "url": "/projects/interviewprep/6.png", "alt": "Interview Prep — live Q&A with voice controls" },
+          { "url": "/projects/interviewprep/7.png", "alt": "Interview Prep — session in progress" },
+          { "url": "/projects/interviewprep/8.png", "alt": "Interview Prep — end-of-session evaluation" },
+          { "url": "/projects/interviewprep/9.png", "alt": "Interview Prep — history or review with export" }
+        ],
+        "title": "Interview Prep — AI mock interviews with Gemini",
+        "descriptionParagraphs": [
+          "Timed mock interviews powered by Google Gemini, with optional resume-aware questions, voice (TTS + speech input), and saved sessions.",
+          "Full-stack Next.js app where signed-in users configure realistic mock interviews (domain, type, technical focus, duration). Gemini drives the conversation—opening questions, follow-ups from the live transcript, and a structured end-of-session evaluation—optionally grounded in an uploaded or pasted resume and target role.",
+          "Includes a fullscreen interview room, browser text-to-speech and speech-to-text, and exportable Q&A history backed by Prisma and Google sign-in.",
+          "How it uses AI: the model generates the first question and each follow-up from the running transcript, time remaining, session focus (stack/track), and tailored resume context, returning structured JSON for each turn. A dedicated API lightly polishes speech-to-text transcripts without inventing facts. After the session, it produces a verdict-style summary with strengths, weaknesses, and recommendations from the full Q&A.",
+          "Stack for recruiters: Next.js App Router, TypeScript, Tailwind v4, Auth.js, Prisma (SQLite locally; PostgreSQL-ready), @google/generative-ai, pdf-parse."
+        ],
+        "highlights": [
+          "Wizard for Web / SAP / IT services tracks; Technical, HR, and Behavioral interviews; configurable session length (15–60 min).",
+          "Tailored mode: server-side PDF text extraction and prompts that include resume plus optional company and role context.",
+          "Server-only Gemini integration with JSON-shaped interview turns and evaluation; model fallback chain for reliability.",
+          "Voice UX: TTS for questions, optional mic input, and debounced AI polish of STT text so answers stay accurate and readable.",
+          "Auth.js + Google OAuth; sessions and turns persisted per user; review page with copy and download."
+        ],
+        "tags": [
+          "Next.js",
+          "TypeScript",
+          "Tailwind v4",
+          "Auth.js",
+          "Prisma",
+          "Gemini",
+          "pdf-parse"
+        ],
         "accent": "secondary"
       }
     ]

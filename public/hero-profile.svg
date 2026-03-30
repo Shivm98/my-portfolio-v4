@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000" role="img" aria-label="Profile placeholder">
+  <defs>
+    <linearGradient id="heroBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f1930"/>
+      <stop offset="100%" stop-color="#060e20"/>
+    </linearGradient>
+    <linearGradient id="heroGlow" x1="20%" y1="0%" x2="80%" y2="100%">
+      <stop offset="0%" stop-color="#a3a6ff" stop-opacity="0.45"/>
+      <stop offset="55%" stop-color="#6366f1" stop-opacity="0.2"/>
+      <stop offset="100%" stop-color="#53ddfc" stop-opacity="0.35"/>
+    </linearGradient>
+    <radialGradient id="heroRadial" cx="50%" cy="35%" r="55%">
+      <stop offset="0%" stop-color="#a3a6ff" stop-opacity="0.5"/>
+      <stop offset="70%" stop-color="#53ddfc" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#060e20" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="1000" fill="url(#heroBg)"/>
+  <circle cx="400" cy="340" r="280" fill="url(#heroRadial)"/>
+  <path
+    fill="url(#heroGlow)"
+    d="M400 220c-88 0-160 72-160 160 0 70 45 129 108 150-95 28-163 115-163 220h630c0-105-68-192-163-220 63-21 108-80 108-150 0-88-72-160-160-160z"
+    opacity="0.85"
+  />
+</svg>

@@ -1,9 +1,32 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import { formatYearsPlus, getCareerYearsElapsed } from "@/lib/careerYears";
+
+function initialsFromName(name) {
+  const parts = String(name ?? "")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+  if (parts.length === 0) return "?";
+  if (parts.length === 1) return parts[0].slice(0, 2).toUpperCase();
+  return (
+    parts[0][0] + parts[parts.length - 1][0]
+  ).toUpperCase();
+}
 
 export default function HeroSection({ data, onViewProjects }) {
   const h = data.hero;
+  const [imageFailed, setImageFailed] = useState(false);
+
+  useEffect(() => {
+    setImageFailed(false);
+  }, [h.imageUrl]);
+
+  const onImageError = useCallback(() => {
+    setImageFailed(true);
+  }, []);
+
   return (
     <section className="max-w-7xl mx-auto px-8 py-16 md:py-28 flex flex-col-reverse md:flex-row items-center gap-16 relative">
       <div className="flex-1 w-full space-y-10">
@@ -52,11 +75,28 @@ export default function HeroSection({ data, onViewProjects }) {
       <div className="relative flex-shrink-0 w-full max-w-md group">
         <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-secondary/20 rounded-[2rem] blur-3xl opacity-50 group-hover:opacity-100 transition-opacity duration-700"></div>
         <div className="relative rounded-[2rem] overflow-hidden border border-black/5 dark:border-white/10 bg-white dark:bg-surface-container-low shadow-2xl aspect-[4/5]">
-          <img
-            alt={h.imageAlt}
-            className="w-full h-full object-cover object-top transition-all duration-700 scale-110 group-hover:scale-100"
-            src={h.imageUrl}
-          />
+          {!imageFailed && h.imageUrl ? (
+            <img
+              alt={h.imageAlt}
+              className="w-full h-full object-cover object-top transition-all duration-700 scale-110 group-hover:scale-100"
+              src={h.imageUrl}
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+              onError={onImageError}
+            />
+          ) : (
+            <div
+              className="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-br from-surface-container via-surface-container-high to-surface-container-low text-center px-6"
+              role="img"
+              aria-label={h.imageAlt}
+            >
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/15 via-transparent to-secondary/20 opacity-90" />
+              <span className="relative font-headline text-5xl sm:text-6xl font-bold tracking-tight text-gradient select-none">
+                {initialsFromName(data.brand?.name)}
+              </span>
+            </div>
+          )}
         </div>
         {h.metrics.map((m, i) => (
           <div
